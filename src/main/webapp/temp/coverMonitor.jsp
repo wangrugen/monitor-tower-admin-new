@@ -38,48 +38,117 @@
     <div id="container" tabindex="0"></div>
 </div>
 <script type="text/javascript">
+    //初始化地图
     var map = new AMap.Map('container', {
-        zoom: 4,
-        center: [102.342785, 35.312316]
+        resizeEnable: true, //是否监控地图容器尺寸变化
+        zoom: 17,
+        center: [112.443416,38.011058],
+        features: ['bg', 'road', 'building', 'point']
     });
 
-    var style = [{
-        url: 'https://a.amap.com/jsapi_demos/static/images/mass0.png',
-        anchor: new AMap.Pixel(6, 6),
-        size: new AMap.Size(11, 11)
-    }, {
-        url: 'https://a.amap.com/jsapi_demos/static/images/mass1.png',
-        anchor: new AMap.Pixel(4, 4),
-        size: new AMap.Size(7, 7)
-    }, {
-        url: 'https://a.amap.com/jsapi_demos/static/images/mass2.png',
-        anchor: new AMap.Pixel(3, 3),
-        size: new AMap.Size(5, 5)
+    //设置地图显示要素
+    function setMapFeatures() {
+        var features = [];
+        var inputs = document.querySelectorAll("#map-features input");
+        inputs.forEach(function(input) {
+            if (input.checked) {
+                features.push(input.value);
+            }
+        });
+        map.setFeatures(features);
     }
-    ];
 
-    var mass = new AMap.MassMarks(citys, {
-        opacity: 0.8,
-        zIndex: 111,
-        cursor: 'pointer',
-        style: style
+    //绑定checkbox点击事件
+    var inputs = document.querySelectorAll("#map-features input");
+    inputs.forEach(function(checkbox) {
+        checkbox.onclick = setMapFeatures;
     });
 
-    var marker = new AMap.Marker({content: ' ', map: map});
-
-    mass.on('mouseover', function (e) {
-
-        marker.setPosition(e.data.lnglat);
-        marker.setLabel({content: e.data.name})
+    var marker1 = new AMap.Marker({
+        position: new AMap.LngLat(112.443416,38.011058),
+        offset: new AMap.Pixel(-10, -10),
+        icon: '${contextPath}/images/icon_coverR.png', // 添加 Icon 图标 URL
+        title: '井盖1'
     });
 
-    mass.setMap(map);
+    var marker2 = new AMap.Marker({
+        position: new AMap.LngLat(112.444360,38.013155),
+        offset: new AMap.Pixel(-10, -10),
+        icon: '${contextPath}/images/icon_coverR.png', // 添加 Icon 图标 URL
+        title: '井盖2'
+    });
 
-    function setStyle(multiIcon) {
-        if (multiIcon) {
-            mass.setStyle(style);
-        } else {
-            mass.setStyle(style[2]);
-        }
-    }
+    var marker3 = new AMap.Marker({
+        position: new AMap.LngLat(112.445497,38.013002),
+        offset: new AMap.Pixel(-10, -10),
+        icon: '${contextPath}/images/icon_coverR.png', // 添加 Icon 图标 URL
+        title: '井盖3'
+    });
+
+    var marker4 = new AMap.Marker({
+        position: new AMap.LngLat(112.449381,38.014558),
+        offset: new AMap.Pixel(-10, -10),
+        icon: '${contextPath}/images/icon_coverR.png', // 添加 Icon 图标 URL
+        title: '井盖4'
+
+    });
+    var marker5 = new AMap.Marker({
+        position: new AMap.LngLat(112.445304,38.011751),
+        offset: new AMap.Pixel(-10, -10),
+        icon: '${contextPath}/images/icon_coverR.png', // 添加 Icon 图标 URL
+        title: '井盖5'
+    });
+
+    var marker6 = new AMap.Marker({
+        position: new AMap.LngLat(112.442944,38.011684),
+        offset: new AMap.Pixel(-10, -10),
+        icon: '${contextPath}/images/icon_coverR.png', // 添加 Icon 图标 URL
+        title: '井盖6'
+    });
+
+    map.add(marker1);
+    map.add(marker2);
+    map.add(marker3);
+    map.add(marker4);
+    map.add(marker5);
+    map.add(marker6);
+
+    var content = ["<div>","电话 : 010-84107000   邮编 : 100102","地址 : xxx地址</div></div>"];
+    var infoWindow = new AMap.InfoWindow({
+        content: content.join("<br>")  //传入 dom 对象，或者 html 字符串
+    });
+
+    marker1.on('click',function(e){
+
+        infoWindow.open(map,[112.443416,38.011058]);
+    });
+    marker2.on('click',function(e){
+
+        infoWindow.open(map,[112.444360,38.013155]);
+    });
+
+    marker3.on('click',function(e){
+
+        infoWindow.open(map,[112.445497,38.013002]);
+    });
+
+    marker4.on('click',function(e){
+
+        infoWindow.open(map,[112.449381,38.014558]);
+    });
+
+    marker5.on('click',function(e){
+
+        infoWindow.open(map,[112.445304,38.011751]);
+    });
+
+    marker6.on('click',function(e){
+
+        infoWindow.open(map,[112.442944,38.011684]);
+    });
+
+
+
+
+
 </script>
