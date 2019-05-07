@@ -1,0 +1,84 @@
+#specify the port of the web application
+server:
+  port: 8099
+  ssl:
+    key-store: ./src/main/resources/tomcat.keystore
+    key-store-password: 741852963.
+
+
+spring:
+  mvc:
+   view:
+    prefix: /WEB-INF/jsp/page/
+    suffix: .jsp
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    filters: stat
+    maxActive: 20
+    initialSize: 1
+    maxWait: 60000
+    minIdle: 1
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: select 'x'
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    maxOpenPreparedStatements: 20
+    url: jdbc:mysql://172.19.63.138:3306/MonitorTower
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.jdbc.Driver
+
+
+
+#pagehelper分页插件
+pagehelper:
+    helperDialect: mysql
+    reasonable: true
+    supportMethodsArguments: true
+    params: count=countSql
+
+## 该配置节点为独立的节点，有很多同学容易将这个配置放在spring的节点下，导致配置无法被识别
+mybatis:
+  mapper-locations: classpath:mybatis/mapper/*.xml  #注意：一定要对应mapper映射xml文件的所在路径
+
+
+# httpClient
+# 代理的host  暂无
+httpclient.config.proxyhost:
+# 代理端口
+httpclient.config.proxyPort:
+# 连接超时或异常重试次数
+httpclient.config.retryTime:
+# 长连接保持时间，单位为s
+#httpclient.config.keepAliveTime=30
+# 连接池最大连接数
+httpclient.config.connMaxTotal: 20
+httpclient.config.maxPerRoute: 20
+# 连接超时时间，单位ms
+httpclient.config.connectTimeout: 3000
+# 请求超时时间
+httpclient.config.connectRequestTimeout: 2000
+# sock超时时间
+httpclient.config.socketTimeout: 3000
+# 连接存活时间，单位s
+httpclient.config.timeToLive: 10
+
+#please modify the value of platformIp/platformPort/appId/secret according to the IoT platform you are connecting to.
+platformIp: 180.101.147.89
+platformPort: 8743
+appId: TzcCegUhLeT5sQ30TqDeuOaYQaga
+#iSU7Y08baykzWHzpAnnWcUVH1TYa
+secret: A11BE0BB49826C526054C109747CC64B8616E97B5DCB8AD5A9AE0A45EFBC1496
+
+#the value of newCaFile and newClientCertFile should not be the same as "ca.jks" or "outgoing.CertwithKey.pkcs12"
+newCaFile:
+newCaPassword:
+newClientCertFile:
+newClientCertPassword:
+#hostNameVerify default value is true, true means setting STRICT_HOSTNAME_VERIFIER, false means setting ALLOW_ALL_HOSTNAME_VERIFIER
+hostNameVerify:
+
+test: 50FE6401E867A34BD533FE67BB85EDABFED62CEA9D8E3F5516E7B48D01F21A5F

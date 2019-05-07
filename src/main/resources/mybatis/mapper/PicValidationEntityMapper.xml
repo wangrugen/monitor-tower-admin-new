@@ -1,0 +1,475 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.iotplatform.picValidation.dao.PicValidationEntityMapper" >
+  <resultMap id="BaseResultMap" type="com.iotplatform.picValidation.entity.PicValidationEntity" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="COMM_ID" property="commId" jdbcType="VARCHAR" />
+    <result column="IMIE" property="imie" jdbcType="VARCHAR" />
+    <result column="VERSION" property="version" jdbcType="VARCHAR" />
+    <result column="DIAN_YA" property="dianYa" jdbcType="VARCHAR" />
+    <result column="JIAO_DU" property="jiaoDu" jdbcType="VARCHAR" />
+    <result column="WEN_DU" property="wenDu" jdbcType="VARCHAR" />
+    <result column="WEI_YI" property="weiYi" jdbcType="VARCHAR" />
+    <result column="RSSI" property="rssi" jdbcType="VARCHAR" />
+    <result column="ZHOU_QI" property="zhouQi" jdbcType="VARCHAR" />
+    <result column="GUAN_ZHU_DIAN" property="guanZhuDian" jdbcType="VARCHAR" />
+    <result column="WEI_DU" property="weiDu" jdbcType="VARCHAR" />
+    <result column="JING_DU" property="jingDu" jdbcType="VARCHAR" />
+    <result column="PIC_SIZE" property="picSize" jdbcType="VARCHAR" />
+    <result column="LEIJIA_JIAOYAN" property="leijiaJiaoyan" jdbcType="VARCHAR" />
+    <result column="PIC_CPC" property="picCpc" jdbcType="VARCHAR" />
+    <result column="PIC_ZHENTOU" property="picZhentou" jdbcType="VARCHAR" />
+    <result column="PIC_YASUO_DATA" property="picYasuoData" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="IMAGE_URL" property="imageUrl" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, COMM_ID, IMIE, VERSION, DIAN_YA, JIAO_DU, WEN_DU, WEI_YI, RSSI, ZHOU_QI, GUAN_ZHU_DIAN, 
+    WEI_DU, JING_DU, PIC_SIZE, LEIJIA_JIAOYAN, PIC_CPC, PIC_ZHENTOU, PIC_YASUO_DATA, 
+    CREATE_TIME, IMAGE_URL
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.iotplatform.picValidation.entity.PicValidationEntityExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from PIC_VALIDATION
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from PIC_VALIDATION
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from PIC_VALIDATION
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.iotplatform.picValidation.entity.PicValidationEntityExample" >
+    delete from PIC_VALIDATION
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.iotplatform.picValidation.entity.PicValidationEntity" >
+    insert into PIC_VALIDATION (ID, COMM_ID, IMIE, 
+      VERSION, DIAN_YA, JIAO_DU, 
+      WEN_DU, WEI_YI, RSSI, 
+      ZHOU_QI, GUAN_ZHU_DIAN, WEI_DU, 
+      JING_DU, PIC_SIZE, LEIJIA_JIAOYAN, 
+      PIC_CPC, PIC_ZHENTOU, PIC_YASUO_DATA, 
+      CREATE_TIME, IMAGE_URL)
+    values (#{id,jdbcType=INTEGER}, #{commId,jdbcType=VARCHAR}, #{imie,jdbcType=VARCHAR}, 
+      #{version,jdbcType=VARCHAR}, #{dianYa,jdbcType=VARCHAR}, #{jiaoDu,jdbcType=VARCHAR}, 
+      #{wenDu,jdbcType=VARCHAR}, #{weiYi,jdbcType=VARCHAR}, #{rssi,jdbcType=VARCHAR}, 
+      #{zhouQi,jdbcType=VARCHAR}, #{guanZhuDian,jdbcType=VARCHAR}, #{weiDu,jdbcType=VARCHAR}, 
+      #{jingDu,jdbcType=VARCHAR}, #{picSize,jdbcType=VARCHAR}, #{leijiaJiaoyan,jdbcType=VARCHAR}, 
+      #{picCpc,jdbcType=VARCHAR}, #{picZhentou,jdbcType=VARCHAR}, #{picYasuoData,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{imageUrl,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.iotplatform.picValidation.entity.PicValidationEntity" >
+    insert into PIC_VALIDATION
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="commId != null" >
+        COMM_ID,
+      </if>
+      <if test="imie != null" >
+        IMIE,
+      </if>
+      <if test="version != null" >
+        VERSION,
+      </if>
+      <if test="dianYa != null" >
+        DIAN_YA,
+      </if>
+      <if test="jiaoDu != null" >
+        JIAO_DU,
+      </if>
+      <if test="wenDu != null" >
+        WEN_DU,
+      </if>
+      <if test="weiYi != null" >
+        WEI_YI,
+      </if>
+      <if test="rssi != null" >
+        RSSI,
+      </if>
+      <if test="zhouQi != null" >
+        ZHOU_QI,
+      </if>
+      <if test="guanZhuDian != null" >
+        GUAN_ZHU_DIAN,
+      </if>
+      <if test="weiDu != null" >
+        WEI_DU,
+      </if>
+      <if test="jingDu != null" >
+        JING_DU,
+      </if>
+      <if test="picSize != null" >
+        PIC_SIZE,
+      </if>
+      <if test="leijiaJiaoyan != null" >
+        LEIJIA_JIAOYAN,
+      </if>
+      <if test="picCpc != null" >
+        PIC_CPC,
+      </if>
+      <if test="picZhentou != null" >
+        PIC_ZHENTOU,
+      </if>
+      <if test="picYasuoData != null" >
+        PIC_YASUO_DATA,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="imageUrl != null" >
+        IMAGE_URL,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="commId != null" >
+        #{commId,jdbcType=VARCHAR},
+      </if>
+      <if test="imie != null" >
+        #{imie,jdbcType=VARCHAR},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=VARCHAR},
+      </if>
+      <if test="dianYa != null" >
+        #{dianYa,jdbcType=VARCHAR},
+      </if>
+      <if test="jiaoDu != null" >
+        #{jiaoDu,jdbcType=VARCHAR},
+      </if>
+      <if test="wenDu != null" >
+        #{wenDu,jdbcType=VARCHAR},
+      </if>
+      <if test="weiYi != null" >
+        #{weiYi,jdbcType=VARCHAR},
+      </if>
+      <if test="rssi != null" >
+        #{rssi,jdbcType=VARCHAR},
+      </if>
+      <if test="zhouQi != null" >
+        #{zhouQi,jdbcType=VARCHAR},
+      </if>
+      <if test="guanZhuDian != null" >
+        #{guanZhuDian,jdbcType=VARCHAR},
+      </if>
+      <if test="weiDu != null" >
+        #{weiDu,jdbcType=VARCHAR},
+      </if>
+      <if test="jingDu != null" >
+        #{jingDu,jdbcType=VARCHAR},
+      </if>
+      <if test="picSize != null" >
+        #{picSize,jdbcType=VARCHAR},
+      </if>
+      <if test="leijiaJiaoyan != null" >
+        #{leijiaJiaoyan,jdbcType=VARCHAR},
+      </if>
+      <if test="picCpc != null" >
+        #{picCpc,jdbcType=VARCHAR},
+      </if>
+      <if test="picZhentou != null" >
+        #{picZhentou,jdbcType=VARCHAR},
+      </if>
+      <if test="picYasuoData != null" >
+        #{picYasuoData,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="imageUrl != null" >
+        #{imageUrl,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.iotplatform.picValidation.entity.PicValidationEntityExample" resultType="java.lang.Integer" >
+    select count(*) from PIC_VALIDATION
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update PIC_VALIDATION
+    <set >
+      <if test="record.id != null" >
+        ID = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.commId != null" >
+        COMM_ID = #{record.commId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.imie != null" >
+        IMIE = #{record.imie,jdbcType=VARCHAR},
+      </if>
+      <if test="record.version != null" >
+        VERSION = #{record.version,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dianYa != null" >
+        DIAN_YA = #{record.dianYa,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jiaoDu != null" >
+        JIAO_DU = #{record.jiaoDu,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wenDu != null" >
+        WEN_DU = #{record.wenDu,jdbcType=VARCHAR},
+      </if>
+      <if test="record.weiYi != null" >
+        WEI_YI = #{record.weiYi,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rssi != null" >
+        RSSI = #{record.rssi,jdbcType=VARCHAR},
+      </if>
+      <if test="record.zhouQi != null" >
+        ZHOU_QI = #{record.zhouQi,jdbcType=VARCHAR},
+      </if>
+      <if test="record.guanZhuDian != null" >
+        GUAN_ZHU_DIAN = #{record.guanZhuDian,jdbcType=VARCHAR},
+      </if>
+      <if test="record.weiDu != null" >
+        WEI_DU = #{record.weiDu,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jingDu != null" >
+        JING_DU = #{record.jingDu,jdbcType=VARCHAR},
+      </if>
+      <if test="record.picSize != null" >
+        PIC_SIZE = #{record.picSize,jdbcType=VARCHAR},
+      </if>
+      <if test="record.leijiaJiaoyan != null" >
+        LEIJIA_JIAOYAN = #{record.leijiaJiaoyan,jdbcType=VARCHAR},
+      </if>
+      <if test="record.picCpc != null" >
+        PIC_CPC = #{record.picCpc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.picZhentou != null" >
+        PIC_ZHENTOU = #{record.picZhentou,jdbcType=VARCHAR},
+      </if>
+      <if test="record.picYasuoData != null" >
+        PIC_YASUO_DATA = #{record.picYasuoData,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.imageUrl != null" >
+        IMAGE_URL = #{record.imageUrl,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update PIC_VALIDATION
+    set ID = #{record.id,jdbcType=INTEGER},
+      COMM_ID = #{record.commId,jdbcType=VARCHAR},
+      IMIE = #{record.imie,jdbcType=VARCHAR},
+      VERSION = #{record.version,jdbcType=VARCHAR},
+      DIAN_YA = #{record.dianYa,jdbcType=VARCHAR},
+      JIAO_DU = #{record.jiaoDu,jdbcType=VARCHAR},
+      WEN_DU = #{record.wenDu,jdbcType=VARCHAR},
+      WEI_YI = #{record.weiYi,jdbcType=VARCHAR},
+      RSSI = #{record.rssi,jdbcType=VARCHAR},
+      ZHOU_QI = #{record.zhouQi,jdbcType=VARCHAR},
+      GUAN_ZHU_DIAN = #{record.guanZhuDian,jdbcType=VARCHAR},
+      WEI_DU = #{record.weiDu,jdbcType=VARCHAR},
+      JING_DU = #{record.jingDu,jdbcType=VARCHAR},
+      PIC_SIZE = #{record.picSize,jdbcType=VARCHAR},
+      LEIJIA_JIAOYAN = #{record.leijiaJiaoyan,jdbcType=VARCHAR},
+      PIC_CPC = #{record.picCpc,jdbcType=VARCHAR},
+      PIC_ZHENTOU = #{record.picZhentou,jdbcType=VARCHAR},
+      PIC_YASUO_DATA = #{record.picYasuoData,jdbcType=VARCHAR},
+      CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      IMAGE_URL = #{record.imageUrl,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.iotplatform.picValidation.entity.PicValidationEntity" >
+    update PIC_VALIDATION
+    <set >
+      <if test="commId != null" >
+        COMM_ID = #{commId,jdbcType=VARCHAR},
+      </if>
+      <if test="imie != null" >
+        IMIE = #{imie,jdbcType=VARCHAR},
+      </if>
+      <if test="version != null" >
+        VERSION = #{version,jdbcType=VARCHAR},
+      </if>
+      <if test="dianYa != null" >
+        DIAN_YA = #{dianYa,jdbcType=VARCHAR},
+      </if>
+      <if test="jiaoDu != null" >
+        JIAO_DU = #{jiaoDu,jdbcType=VARCHAR},
+      </if>
+      <if test="wenDu != null" >
+        WEN_DU = #{wenDu,jdbcType=VARCHAR},
+      </if>
+      <if test="weiYi != null" >
+        WEI_YI = #{weiYi,jdbcType=VARCHAR},
+      </if>
+      <if test="rssi != null" >
+        RSSI = #{rssi,jdbcType=VARCHAR},
+      </if>
+      <if test="zhouQi != null" >
+        ZHOU_QI = #{zhouQi,jdbcType=VARCHAR},
+      </if>
+      <if test="guanZhuDian != null" >
+        GUAN_ZHU_DIAN = #{guanZhuDian,jdbcType=VARCHAR},
+      </if>
+      <if test="weiDu != null" >
+        WEI_DU = #{weiDu,jdbcType=VARCHAR},
+      </if>
+      <if test="jingDu != null" >
+        JING_DU = #{jingDu,jdbcType=VARCHAR},
+      </if>
+      <if test="picSize != null" >
+        PIC_SIZE = #{picSize,jdbcType=VARCHAR},
+      </if>
+      <if test="leijiaJiaoyan != null" >
+        LEIJIA_JIAOYAN = #{leijiaJiaoyan,jdbcType=VARCHAR},
+      </if>
+      <if test="picCpc != null" >
+        PIC_CPC = #{picCpc,jdbcType=VARCHAR},
+      </if>
+      <if test="picZhentou != null" >
+        PIC_ZHENTOU = #{picZhentou,jdbcType=VARCHAR},
+      </if>
+      <if test="picYasuoData != null" >
+        PIC_YASUO_DATA = #{picYasuoData,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="imageUrl != null" >
+        IMAGE_URL = #{imageUrl,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.iotplatform.picValidation.entity.PicValidationEntity" >
+    update PIC_VALIDATION
+    set COMM_ID = #{commId,jdbcType=VARCHAR},
+      IMIE = #{imie,jdbcType=VARCHAR},
+      VERSION = #{version,jdbcType=VARCHAR},
+      DIAN_YA = #{dianYa,jdbcType=VARCHAR},
+      JIAO_DU = #{jiaoDu,jdbcType=VARCHAR},
+      WEN_DU = #{wenDu,jdbcType=VARCHAR},
+      WEI_YI = #{weiYi,jdbcType=VARCHAR},
+      RSSI = #{rssi,jdbcType=VARCHAR},
+      ZHOU_QI = #{zhouQi,jdbcType=VARCHAR},
+      GUAN_ZHU_DIAN = #{guanZhuDian,jdbcType=VARCHAR},
+      WEI_DU = #{weiDu,jdbcType=VARCHAR},
+      JING_DU = #{jingDu,jdbcType=VARCHAR},
+      PIC_SIZE = #{picSize,jdbcType=VARCHAR},
+      LEIJIA_JIAOYAN = #{leijiaJiaoyan,jdbcType=VARCHAR},
+      PIC_CPC = #{picCpc,jdbcType=VARCHAR},
+      PIC_ZHENTOU = #{picZhentou,jdbcType=VARCHAR},
+      PIC_YASUO_DATA = #{picYasuoData,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      IMAGE_URL = #{imageUrl,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <sql id="condition">
+    from  PIC_VALIDATION  t1
+    <!--
+    <where>
+      <if test="loginName != null and '' != loginName">
+        and t1.LOGIN_NAME like '%'||#{loginName,jdbcType=VARCHAR}||'%'
+      </if>
+      <if test="realName != null and '' != realName">
+        and t1.REAL_NAME like '%'||#{realName,jdbcType=VARCHAR}||'%'
+      </if>
+      <if test="isDelete != null and '' != isDelete">
+        and t1.IS_DELETE = #{isDelete,jdbcType=CHAR}
+      </if>
+      <if test="email != null and '' != email">
+        and t1.EMAIL like '%'||#{email,jdbcType=VARCHAR}
+      </if>
+
+    </where>
+     -->
+  </sql>
+
+  <select id="list" resultType="hashmap">
+    select
+    *
+    <include refid="condition"/>
+    order by t1.ID
+  </select>
+</mapper>

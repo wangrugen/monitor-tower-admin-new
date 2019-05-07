@@ -1,0 +1,31 @@
+#specify the port of the web application
+server.port=8099
+
+spring.mvc.view.prefix=/WEB-INF/jsp/page/
+spring.mvc.view.suffix=.jsp
+
+#one-way authentication (server-auth)
+server.ssl.key-store=./src/main/resources/tomcat.keystore
+server.ssl.key-store-password=741852963.
+
+#two-way authentication (add client-auth)
+#server.ssl.trust-store=./src/main/resources/tomcat.keystore
+#server.ssl.trust-store-password=741852963.
+#server.ssl.client-auth=need
+
+#please modify the value of platformIp/platformPort/appId/secret according to the IoT platform you are connecting to.
+platformIp=180.101.147.89
+platformPort=8743
+appId=TzcCegUhLeT5sQ30TqDeuOaYQaga
+#iSU7Y08baykzWHzpAnnWcUVH1TYa
+secret=A11BE0BB49826C526054C109747CC64B8616E97B5DCB8AD5A9AE0A45EFBC1496
+
+#the value of newCaFile and newClientCertFile should not be the same as "ca.jks" or "outgoing.CertwithKey.pkcs12"
+newCaFile=
+newCaPassword=
+newClientCertFile=
+newClientCertPassword=
+#hostNameVerify default value is true, true means setting STRICT_HOSTNAME_VERIFIER, false means setting ALLOW_ALL_HOSTNAME_VERIFIER 
+hostNameVerify=
+
+test=50FE6401E867A34BD533FE67BB85EDABFED62CEA9D8E3F5516E7B48D01F21A5F
