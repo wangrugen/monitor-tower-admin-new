@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.iotplatform.receiveHexDecimal.dao.ReceiveHexDecimalEntityMapper" >
+  <resultMap id="BaseResultMap" type="com.iotplatform.receiveHexDecimal.entity.ReceiveHexDecimalEntity" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="BEGIN" property="begin" jdbcType="VARCHAR" />
+    <result column="IMEI" property="imei" jdbcType="VARCHAR" />
+    <result column="TIME" property="time" jdbcType="VARCHAR" />
+    <result column="JIN_GDU" property="jinGdu" jdbcType="VARCHAR" />
+    <result column="WEI_DU" property="weiDu" jdbcType="VARCHAR" />
+    <result column="GAO_DU" property="gaoDu" jdbcType="VARCHAR" />
+    <result column="BEI_YONG" property="beiYong" jdbcType="VARCHAR" />
+    <result column="END" property="end" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, BEGIN, IMEI, TIME, JIN_GDU, WEI_DU, GAO_DU, BEI_YONG, END, CREATE_TIME
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.iotplatform.receiveHexDecimal.entity.ReceiveHexDecimalEntityExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_receive_hex_decimal
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_receive_hex_decimal
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_receive_hex_decimal
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.iotplatform.receiveHexDecimal.entity.ReceiveHexDecimalEntityExample" >
+    delete from t_receive_hex_decimal
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.iotplatform.receiveHexDecimal.entity.ReceiveHexDecimalEntity" >
+    insert into t_receive_hex_decimal (ID, BEGIN, IMEI, 
+      TIME, JIN_GDU, WEI_DU, 
+      GAO_DU, BEI_YONG, END, 
+      CREATE_TIME)
+    values (#{id,jdbcType=INTEGER}, #{begin,jdbcType=VARCHAR}, #{imei,jdbcType=VARCHAR}, 
+      #{time,jdbcType=VARCHAR}, #{jinGdu,jdbcType=VARCHAR}, #{weiDu,jdbcType=VARCHAR}, 
+      #{gaoDu,jdbcType=VARCHAR}, #{beiYong,jdbcType=VARCHAR}, #{end,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.iotplatform.receiveHexDecimal.entity.ReceiveHexDecimalEntity" >
+    insert into t_receive_hex_decimal
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="begin != null" >
+        BEGIN,
+      </if>
+      <if test="imei != null" >
+        IMEI,
+      </if>
+      <if test="time != null" >
+        TIME,
+      </if>
+      <if test="jinGdu != null" >
+        JIN_GDU,
+      </if>
+      <if test="weiDu != null" >
+        WEI_DU,
+      </if>
+      <if test="gaoDu != null" >
+        GAO_DU,
+      </if>
+      <if test="beiYong != null" >
+        BEI_YONG,
+      </if>
+      <if test="end != null" >
+        END,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="begin != null" >
+        #{begin,jdbcType=VARCHAR},
+      </if>
+      <if test="imei != null" >
+        #{imei,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null" >
+        #{time,jdbcType=VARCHAR},
+      </if>
+      <if test="jinGdu != null" >
+        #{jinGdu,jdbcType=VARCHAR},
+      </if>
+      <if test="weiDu != null" >
+        #{weiDu,jdbcType=VARCHAR},
+      </if>
+      <if test="gaoDu != null" >
+        #{gaoDu,jdbcType=VARCHAR},
+      </if>
+      <if test="beiYong != null" >
+        #{beiYong,jdbcType=VARCHAR},
+      </if>
+      <if test="end != null" >
+        #{end,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.iotplatform.receiveHexDecimal.entity.ReceiveHexDecimalEntityExample" resultType="java.lang.Integer" >
+    select count(*) from t_receive_hex_decimal
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_receive_hex_decimal
+    <set >
+      <if test="record.id != null" >
+        ID = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.begin != null" >
+        BEGIN = #{record.begin,jdbcType=VARCHAR},
+      </if>
+      <if test="record.imei != null" >
+        IMEI = #{record.imei,jdbcType=VARCHAR},
+      </if>
+      <if test="record.time != null" >
+        TIME = #{record.time,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jinGdu != null" >
+        JIN_GDU = #{record.jinGdu,jdbcType=VARCHAR},
+      </if>
+      <if test="record.weiDu != null" >
+        WEI_DU = #{record.weiDu,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gaoDu != null" >
+        GAO_DU = #{record.gaoDu,jdbcType=VARCHAR},
+      </if>
+      <if test="record.beiYong != null" >
+        BEI_YONG = #{record.beiYong,jdbcType=VARCHAR},
+      </if>
+      <if test="record.end != null" >
+        END = #{record.end,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_receive_hex_decimal
+    set ID = #{record.id,jdbcType=INTEGER},
+      BEGIN = #{record.begin,jdbcType=VARCHAR},
+      IMEI = #{record.imei,jdbcType=VARCHAR},
+      TIME = #{record.time,jdbcType=VARCHAR},
+      JIN_GDU = #{record.jinGdu,jdbcType=VARCHAR},
+      WEI_DU = #{record.weiDu,jdbcType=VARCHAR},
+      GAO_DU = #{record.gaoDu,jdbcType=VARCHAR},
+      BEI_YONG = #{record.beiYong,jdbcType=VARCHAR},
+      END = #{record.end,jdbcType=VARCHAR},
+      CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.iotplatform.receiveHexDecimal.entity.ReceiveHexDecimalEntity" >
+    update t_receive_hex_decimal
+    <set >
+      <if test="begin != null" >
+        BEGIN = #{begin,jdbcType=VARCHAR},
+      </if>
+      <if test="imei != null" >
+        IMEI = #{imei,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null" >
+        TIME = #{time,jdbcType=VARCHAR},
+      </if>
+      <if test="jinGdu != null" >
+        JIN_GDU = #{jinGdu,jdbcType=VARCHAR},
+      </if>
+      <if test="weiDu != null" >
+        WEI_DU = #{weiDu,jdbcType=VARCHAR},
+      </if>
+      <if test="gaoDu != null" >
+        GAO_DU = #{gaoDu,jdbcType=VARCHAR},
+      </if>
+      <if test="beiYong != null" >
+        BEI_YONG = #{beiYong,jdbcType=VARCHAR},
+      </if>
+      <if test="end != null" >
+        END = #{end,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.iotplatform.receiveHexDecimal.entity.ReceiveHexDecimalEntity" >
+    update t_receive_hex_decimal
+    set BEGIN = #{begin,jdbcType=VARCHAR},
+      IMEI = #{imei,jdbcType=VARCHAR},
+      TIME = #{time,jdbcType=VARCHAR},
+      JIN_GDU = #{jinGdu,jdbcType=VARCHAR},
+      WEI_DU = #{weiDu,jdbcType=VARCHAR},
+      GAO_DU = #{gaoDu,jdbcType=VARCHAR},
+      BEI_YONG = #{beiYong,jdbcType=VARCHAR},
+      END = #{end,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
