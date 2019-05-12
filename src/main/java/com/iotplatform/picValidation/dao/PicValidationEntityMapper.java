@@ -34,4 +34,6 @@ public interface PicValidationEntityMapper {
     int updateByPrimaryKeySelective(PicValidationEntity record);
 
     int updateByPrimaryKey(PicValidationEntity record);
+
+    List<Object>   selectForUpdate();
 }

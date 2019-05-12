@@ -472,4 +472,13 @@
     <include refid="condition"/>
     order by t1.ID
   </select>
+
+  <select id="selectForUpdate"  resultType="hashmap" >
+    select
+    *
+    <include refid="condition"/>
+    for update
+  </select>
+
+
 </mapper>
