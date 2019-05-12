@@ -287,4 +287,31 @@
       CREATE_TIME = #{createTime,jdbcType=TIMESTAMP}
     where ID = #{id,jdbcType=INTEGER}
   </update>
+
+  <sql id="condition">
+    from  t_receive_hex_decimal  t1
+    <!--
+    <where>
+      <if test="loginName != null and '' != loginName">
+        and t1.LOGIN_NAME like '%'||#{loginName,jdbcType=VARCHAR}||'%'
+      </if>
+      <if test="realName != null and '' != realName">
+        and t1.REAL_NAME like '%'||#{realName,jdbcType=VARCHAR}||'%'
+      </if>
+      <if test="isDelete != null and '' != isDelete">
+        and t1.IS_DELETE = #{isDelete,jdbcType=CHAR}
+      </if>
+      <if test="email != null and '' != email">
+        and t1.EMAIL like '%'||#{email,jdbcType=VARCHAR}
+      </if>
+
+    </where>
+     -->
+  </sql>
+  <select id="list" resultType="hashmap">
+    select
+    *
+    <include refid="condition"/>
+    order by t1.ID
+  </select>
 </mapper>

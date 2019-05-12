@@ -2,7 +2,9 @@ package com.iotplatform.receiveHexDecimal.dao;
 
 import com.iotplatform.receiveHexDecimal.entity.ReceiveHexDecimalEntity;
 import com.iotplatform.receiveHexDecimal.entity.ReceiveHexDecimalEntityExample;
+import com.iotplatform.receiveHexDecimal.param.ReceiveHexDecimalParam;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.session.RowBounds;
 
 import java.util.List;
 
@@ -28,4 +30,6 @@ public interface ReceiveHexDecimalEntityMapper {
     int updateByPrimaryKeySelective(ReceiveHexDecimalEntity record);
 
     int updateByPrimaryKey(ReceiveHexDecimalEntity record);
+
+    List<Object> list(ReceiveHexDecimalParam vo, RowBounds toRowBounds);
 }

@@ -67,7 +67,13 @@
                         <a _href="temp/picTest-list.jsp">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>图片接收测试</cite>
-                            
+                        </a>
+                    </li >
+
+                    <li>
+                        <a _href="temp/receiveHexDecimal-list.jsp">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>16进制接收测试</cite>
                         </a>
                     </li >
                     <!--
