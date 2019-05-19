@@ -289,7 +289,7 @@
   </update>
 
   <sql id="condition">
-    from  t_receive_hex_decimal  t1
+    from  t_posistion_record  t1
     <!--
     <where>
       <if test="loginName != null and '' != loginName">

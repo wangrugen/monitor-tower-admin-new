@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.iotplatform.receiveHexDecimal.dao.PositionRecordEntityMapper" >
+  <resultMap id="BaseResultMap" type="com.iotplatform.receiveHexDecimal.entity.PositionRecordEntity" >
+    <result column="ID" property="id" jdbcType="INTEGER" />
+    <result column="M1" property="m1" jdbcType="VARCHAR" />
+    <result column="M2" property="m2" jdbcType="VARCHAR" />
+    <result column="IMEI" property="imei" jdbcType="VARCHAR" />
+    <result column="SHI_JIAN" property="shiJian" jdbcType="VARCHAR" />
+    <result column="XIN_HAO_ZHI_LIANG" property="xinHaoZhiLiang" jdbcType="VARCHAR" />
+    <result column="WEI_DU" property="weiDu" jdbcType="VARCHAR" />
+    <result column="JING_DU" property="jingDu" jdbcType="VARCHAR" />
+    <result column="GAO_DU" property="gaoDu" jdbcType="VARCHAR" />
+    <result column="DW" property="dw" jdbcType="VARCHAR" />
+    <result column="NS" property="ns" jdbcType="VARCHAR" />
+    <result column="EW" property="ew" jdbcType="VARCHAR" />
+    <result column="WX" property="wx" jdbcType="VARCHAR" />
+    <result column="DY" property="dy" jdbcType="VARCHAR" />
+    <result column="HE" property="he" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="MODIFY_TIME" property="modifyTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, M1, M2, IMEI, SHI_JIAN, XIN_HAO_ZHI_LIANG, WEI_DU, JING_DU, GAO_DU, DW, NS, EW, 
+    WX, DY, HE, CREATE_TIME, MODIFY_TIME
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.iotplatform.receiveHexDecimal.entity.PositionRecordEntityExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_posistion_record
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.iotplatform.receiveHexDecimal.entity.PositionRecordEntityExample" >
+    delete from t_posistion_record
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.iotplatform.receiveHexDecimal.entity.PositionRecordEntity" >
+    insert into t_posistion_record (ID, M1, M2, IMEI, 
+      SHI_JIAN, XIN_HAO_ZHI_LIANG, WEI_DU, 
+      JING_DU, GAO_DU, DW, 
+      NS, EW, WX, DY, 
+      HE, CREATE_TIME, MODIFY_TIME
+      )
+    values (#{id,jdbcType=INTEGER}, #{m1,jdbcType=VARCHAR}, #{m2,jdbcType=VARCHAR}, #{imei,jdbcType=VARCHAR}, 
+      #{shiJian,jdbcType=VARCHAR}, #{xinHaoZhiLiang,jdbcType=VARCHAR}, #{weiDu,jdbcType=VARCHAR}, 
+      #{jingDu,jdbcType=VARCHAR}, #{gaoDu,jdbcType=VARCHAR}, #{dw,jdbcType=VARCHAR}, 
+      #{ns,jdbcType=VARCHAR}, #{ew,jdbcType=VARCHAR}, #{wx,jdbcType=VARCHAR}, #{dy,jdbcType=VARCHAR}, 
+      #{he,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.iotplatform.receiveHexDecimal.entity.PositionRecordEntity" >
+    insert into t_posistion_record
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="m1 != null" >
+        M1,
+      </if>
+      <if test="m2 != null" >
+        M2,
+      </if>
+      <if test="imei != null" >
+        IMEI,
+      </if>
+      <if test="shiJian != null" >
+        SHI_JIAN,
+      </if>
+      <if test="xinHaoZhiLiang != null" >
+        XIN_HAO_ZHI_LIANG,
+      </if>
+      <if test="weiDu != null" >
+        WEI_DU,
+      </if>
+      <if test="jingDu != null" >
+        JING_DU,
+      </if>
+      <if test="gaoDu != null" >
+        GAO_DU,
+      </if>
+      <if test="dw != null" >
+        DW,
+      </if>
+      <if test="ns != null" >
+        NS,
+      </if>
+      <if test="ew != null" >
+        EW,
+      </if>
+      <if test="wx != null" >
+        WX,
+      </if>
+      <if test="dy != null" >
+        DY,
+      </if>
+      <if test="he != null" >
+        HE,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="modifyTime != null" >
+        MODIFY_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="m1 != null" >
+        #{m1,jdbcType=VARCHAR},
+      </if>
+      <if test="m2 != null" >
+        #{m2,jdbcType=VARCHAR},
+      </if>
+      <if test="imei != null" >
+        #{imei,jdbcType=VARCHAR},
+      </if>
+      <if test="shiJian != null" >
+        #{shiJian,jdbcType=VARCHAR},
+      </if>
+      <if test="xinHaoZhiLiang != null" >
+        #{xinHaoZhiLiang,jdbcType=VARCHAR},
+      </if>
+      <if test="weiDu != null" >
+        #{weiDu,jdbcType=VARCHAR},
+      </if>
+      <if test="jingDu != null" >
+        #{jingDu,jdbcType=VARCHAR},
+      </if>
+      <if test="gaoDu != null" >
+        #{gaoDu,jdbcType=VARCHAR},
+      </if>
+      <if test="dw != null" >
+        #{dw,jdbcType=VARCHAR},
+      </if>
+      <if test="ns != null" >
+        #{ns,jdbcType=VARCHAR},
+      </if>
+      <if test="ew != null" >
+        #{ew,jdbcType=VARCHAR},
+      </if>
+      <if test="wx != null" >
+        #{wx,jdbcType=VARCHAR},
+      </if>
+      <if test="dy != null" >
+        #{dy,jdbcType=VARCHAR},
+      </if>
+      <if test="he != null" >
+        #{he,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null" >
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.iotplatform.receiveHexDecimal.entity.PositionRecordEntityExample" resultType="java.lang.Integer" >
+    select count(*) from t_posistion_record
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_posistion_record
+    <set >
+      <if test="record.id != null" >
+        ID = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.m1 != null" >
+        M1 = #{record.m1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.m2 != null" >
+        M2 = #{record.m2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.imei != null" >
+        IMEI = #{record.imei,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shiJian != null" >
+        SHI_JIAN = #{record.shiJian,jdbcType=VARCHAR},
+      </if>
+      <if test="record.xinHaoZhiLiang != null" >
+        XIN_HAO_ZHI_LIANG = #{record.xinHaoZhiLiang,jdbcType=VARCHAR},
+      </if>
+      <if test="record.weiDu != null" >
+        WEI_DU = #{record.weiDu,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jingDu != null" >
+        JING_DU = #{record.jingDu,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gaoDu != null" >
+        GAO_DU = #{record.gaoDu,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dw != null" >
+        DW = #{record.dw,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ns != null" >
+        NS = #{record.ns,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ew != null" >
+        EW = #{record.ew,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wx != null" >
+        WX = #{record.wx,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dy != null" >
+        DY = #{record.dy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.he != null" >
+        HE = #{record.he,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.modifyTime != null" >
+        MODIFY_TIME = #{record.modifyTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_posistion_record
+    set ID = #{record.id,jdbcType=INTEGER},
+      M1 = #{record.m1,jdbcType=VARCHAR},
+      M2 = #{record.m2,jdbcType=VARCHAR},
+      IMEI = #{record.imei,jdbcType=VARCHAR},
+      SHI_JIAN = #{record.shiJian,jdbcType=VARCHAR},
+      XIN_HAO_ZHI_LIANG = #{record.xinHaoZhiLiang,jdbcType=VARCHAR},
+      WEI_DU = #{record.weiDu,jdbcType=VARCHAR},
+      JING_DU = #{record.jingDu,jdbcType=VARCHAR},
+      GAO_DU = #{record.gaoDu,jdbcType=VARCHAR},
+      DW = #{record.dw,jdbcType=VARCHAR},
+      NS = #{record.ns,jdbcType=VARCHAR},
+      EW = #{record.ew,jdbcType=VARCHAR},
+      WX = #{record.wx,jdbcType=VARCHAR},
+      DY = #{record.dy,jdbcType=VARCHAR},
+      HE = #{record.he,jdbcType=VARCHAR},
+      CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      MODIFY_TIME = #{record.modifyTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

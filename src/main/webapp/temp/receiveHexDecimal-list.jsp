@@ -133,14 +133,11 @@
                 ,page: true //开启分页
                 ,cols: [[ //表头
                     {field: 'ID', title: 'ID', width:80, sort: true, fixed: 'left'}
-                    ,{field: 'BEGIN', title: '开始位', width:80}
                     ,{field: 'IMEI', title: 'IMEI', width:80, sort: true}
                     ,{field: 'TIME', title: '时间', width:80}
                     ,{field: 'JIN_GDU', title: '经度', width: 177}
                     ,{field: 'WEI_DU', title: '纬度', width: 80, sort: true}
-                    ,{field: 'GAO_DU', title: '高度', width: 80}
-                    ,{field: 'BEI_YONG', title: '备用', width: 135, sort: true}
-                    ,{field: 'END', title: '结束位', width: 135, sort: true},
+                    ,{field: 'GAO_DU', title: '高度', width: 80},
                    {fixed: 'right', width:80, align:'center', toolbar: '#barDemo',title: '操作'}
                 ]]
             });
