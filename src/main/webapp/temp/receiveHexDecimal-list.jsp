@@ -134,8 +134,8 @@
                 ,cols: [[ //表头
                     {field: 'ID', title: 'ID', width:80, sort: true, fixed: 'left'}
                     ,{field: 'IMEI', title: 'IMEI', width:80, sort: true}
-                    ,{field: 'TIME', title: '时间', width:80}
-                    ,{field: 'JIN_GDU', title: '经度', width: 177}
+                    ,{field: 'SHI_JIAN', title: '时间', width:80}
+                    ,{field: 'JING_DU', title: '经度', width: 177}
                     ,{field: 'WEI_DU', title: '纬度', width: 80, sort: true}
                     ,{field: 'GAO_DU', title: '高度', width: 80},
                    {fixed: 'right', width:80, align:'center', toolbar: '#barDemo',title: '操作'}

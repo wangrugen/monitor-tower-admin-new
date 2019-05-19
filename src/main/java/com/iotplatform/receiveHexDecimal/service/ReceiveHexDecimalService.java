@@ -216,7 +216,7 @@ public class ReceiveHexDecimalService {
     public static  void main (String args[]){
 
 
-        System.out.print( getNeedFloat(3076.987f));
+        System.out.print( "EB 90 38 36 39 30 37 35 30 33 30 33 37 32 33 34 38 31 31 30 35 35 36 17 D7 D3 6A 45 39 85 2F 46 00 C0 2A 44 00 4E 45 03 2A 4F ".replace(" ", ""));
     }
 
     public static float bytesToFloat(byte[] data) {// 解析4个字节中的数据，按照IEEE754的标准
