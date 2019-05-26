@@ -23,6 +23,7 @@ import java.math.RoundingMode;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -90,46 +91,63 @@ public class ReceiveHexDecimalService {
                 if(StringUtils.isEmpty(data.toString())){
                     return ;
                 }
-                String dataToStirng =data.toString().trim();
+                String dataSpilit = null;
+                String dataToStirngTotal =data.toString().trim();
+                int dataLength = dataToStirngTotal.length();
+                if(dataLength%84!=0){
+                    throw  new RuntimeException("数据有误请检查");
+                }
 
-                String  M1 =dataToStirng.substring(0,2);
+                int count =dataLength/84;
 
-                String M2=dataToStirng.substring(2,4);
+                int j=0;
+                for (int i=0;i<count;i++){
+                    dataSpilit=dataToStirngTotal.substring(j,j+84);
+                    String  M1 =dataSpilit.substring(0,2);
 
-                String IMEI =dataToStirng.substring(4,34);
+                    String M2=dataSpilit.substring(2,4);
 
-                String  shijian=dataToStirng.substring(34,46);
+                    String IMEI =dataSpilit.substring(4,34);
 
-                String zhiliang=dataToStirng.substring(46,48);
+                    String  shijian=dataSpilit.substring(34,46);
 
-                float weidu=getNeedFloat(NumberUtils.IEEE754StrTofloat(dataToStirng.substring(48,56)));
-                float jingdu=getNeedFloat(NumberUtils.IEEE754StrTofloat(dataToStirng.substring(56,64)));
-                float gaodu=getNeedFloat(NumberUtils.IEEE754StrTofloat(dataToStirng.substring(64,72)));
+                    String time =handleTime(shijian);
 
-                String DW=dataToStirng.substring(72,74);
-                String NS=dataToStirng.substring(74,76);
-                String EW=dataToStirng.substring(76,78);
-                String WX=dataToStirng.substring(78,80);
-                String DY=dataToStirng.substring(80,82);
-                String HE=dataToStirng.substring(82,84);
-                PositionRecordEntity entity  =new PositionRecordEntity()  ;
-                entity.setCreateTime(new Date());
-                entity.setM1(M1);
-                entity.setM2(M2);
-                entity.setImei(IMEI);
-                entity.setShiJian(shijian);
-                entity.setXinHaoZhiLiang(zhiliang);
-                entity.setWeiDu(String .valueOf(weidu));
-                entity.setJingDu(String .valueOf(jingdu));
-                entity.setGaoDu(String .valueOf(gaodu));
-                entity.setDw(DW);
-                entity.setNs(NS);
-                entity.setEw(EW);
-                entity.setWx(WX);
-                entity.setDy(DY);
-                entity.setHe(HE);
-                positionRecordEntityMapper.insert(entity);
-                System.out.print("插入成功");
+                    String zhiliang=dataSpilit.substring(46,48);
+
+                    float weidu=getNeedFloat(NumberUtils.IEEE754StrTofloat(dataSpilit.substring(48,56)));
+                    float jingdu=getNeedFloat(NumberUtils.IEEE754StrTofloat(dataSpilit.substring(56,64)));
+                    float gaodu=getNeedFloat(NumberUtils.IEEE754StrTofloat(dataSpilit.substring(64,72)));
+
+                    String DW=dataSpilit.substring(72,74);
+                    String NS=dataSpilit.substring(74,76);
+                    String EW=dataSpilit.substring(76,78);
+                    String WX=dataSpilit.substring(78,80);
+                    String DY=dataSpilit.substring(80,82);
+                    String HE=dataSpilit.substring(82,84);
+                    PositionRecordEntity entity  =new PositionRecordEntity()  ;
+                    entity.setCreateTime(new Date());
+                    entity.setM1(M1);
+                    entity.setM2(M2);
+                    entity.setImei(IMEI);
+                    entity.setShiJian(time);
+                    entity.setXinHaoZhiLiang(zhiliang);
+                    entity.setWeiDu(String .valueOf(weidu));
+                    entity.setJingDu(String .valueOf(jingdu));
+                    entity.setGaoDu(String .valueOf(gaodu));
+                    entity.setDw(DW);
+                    entity.setNs(NS);
+                    entity.setEw(EW);
+                    entity.setWx(WX);
+                    entity.setDy(DY);
+                    entity.setHe(HE);
+                    positionRecordEntityMapper.insert(entity);
+                    System.out.print("插入成功");
+                    dataSpilit=null;
+                    j=j+84;
+                }
+
+
             }catch(Exception e){e.printStackTrace();}finally{
                 try{
                     System.out.println("关闭连接:"+clientSocket.getInetAddress()+":"+clientSocket.getPort());
@@ -216,7 +234,8 @@ public class ReceiveHexDecimalService {
     public static  void main (String args[]){
 
 
-        System.out.print( "EB 90 38 36 39 30 37 35 30 33 30 33 37 32 33 34 38 31 31 30 35 35 36 17 D7 D3 6A 45 39 85 2F 46 00 C0 2A 44 00 4E 45 03 2A 4F ".replace(" ", ""));
+
+        System.out.print(handleTime("313130353536"));
     }
 
     public static float bytesToFloat(byte[] data) {// 解析4个字节中的数据，按照IEEE754的标准
@@ -278,7 +297,15 @@ public class ReceiveHexDecimalService {
         return decimal1.add(decimal2).floatValue();
     }
 
-
-
+    public static  String handleTime(String shijian){
+        String time ="";
+        int j=0;
+        for (int i=0;i<shijian.length()/2;i++){
+            String str = NumberUtils.StringToAsciiString(shijian.substring(j,j+2));
+            time=time+str;
+            j=j+2;
+        }
+        return time;
+    }
 
 }
