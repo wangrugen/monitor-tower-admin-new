@@ -12,7 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
+import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -78,13 +80,13 @@ public class ReceiveHexDecimalService {
             try{
                 System.out.println("客户端连接:" + clientSocket.getLocalSocketAddress().toString());
                 InputStream is = clientSocket.getInputStream();
-                BufferedReader br = new BufferedReader(new InputStreamReader(is));
-                byte[] buf = new byte[1024];
-                int line = 0;
+                BufferedInputStream  br = new BufferedInputStream(is);
+                DataInputStream dis = new DataInputStream(br);
+                byte[] bytes = new byte[1]; // 一次读取一个byte
                 StringBuffer data = new StringBuffer();//获取到16进制数据
-                while ((line = is.read(buf)) != -1) {
-                    data.append(new String(buf, 0, line));
-                    System.out.println("数据："+data.toString());
+                while (dis.read(bytes) != -1) {
+                    data.append(bytesToHexString(bytes));
+                    System.out.println("数据输出："+bytesToHexString(bytes));
                 }
                 System.out.println("数据总接收："+data.toString());
 
@@ -308,4 +310,15 @@ public class ReceiveHexDecimalService {
         return time;
     }
 
+    public static String bytesToHexString(byte[] bytes) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < bytes.length; i++) {
+            String hex = Integer.toHexString(0xFF & bytes[i]);
+            if (hex.length() == 1) {
+                sb.append('0');
+            }
+            sb.append(hex);
+        }
+        return sb.toString();
+    }
 }
