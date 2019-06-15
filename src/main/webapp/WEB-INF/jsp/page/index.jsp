@@ -73,7 +73,13 @@
                     <li>
                         <a _href="temp/receiveHexDecimal-list.jsp">
                             <i class="iconfont">&#xe6a7;</i>
-                            <cite>16进制接收测试</cite>
+                            <cite>16进制接收测试【测试硬件】</cite>
+                        </a>
+                    </li >
+                    <li>
+                        <a _href="temp/receiveHexDecimal-tool-list.jsp">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>16进制接收测试【测试工具】</cite>
                         </a>
                     </li >
                     <!--

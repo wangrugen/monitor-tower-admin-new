@@ -48,6 +48,18 @@ public class ReceiveHexDecimalController {
     }
 
 
+    @RequestMapping(value ="/startServerReceiveHexDecimalTool")
+    @ResponseBody
+    public ResponseMessage startServerReceiveHexDecimalTool(int port , HttpServletRequest  request){
+        try{
+            receiveHexDecimalService.startUpReciverHexServerTool(port);
+        }catch (Exception e){
+
+        }finally {
+            return new ResponseMessage();
+        }
+
+    }
 
 
 }

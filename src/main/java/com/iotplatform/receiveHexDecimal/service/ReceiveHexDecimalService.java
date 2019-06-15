@@ -55,6 +55,15 @@ public class ReceiveHexDecimalService {
         }
     }
 
+    public void startUpReciverHexServerTool(int port ) {
+        try {
+            serverSocket = new ServerSocket(port);
+            this.startTool();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     //服务器开启方法
     public void start() {
@@ -64,6 +73,20 @@ public class ReceiveHexDecimalService {
                 socket=serverSocket.accept();                     //主线程获取客户端连接
                 System.out.println("启动server成功");
                 Thread workThread=new Thread(new Handler(socket));    //创建线程
+                workThread.start();                                    //启动线程
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void startTool() {
+        while(true){
+            Socket socket=null;
+            try{
+                socket=serverSocket.accept();                     //主线程获取客户端连接
+                System.out.println("启动server成功");
+                Thread workThread=new Thread(new HandlerTool(socket));    //创建线程
                 workThread.start();                                    //启动线程
             }catch(Exception e){
                 e.printStackTrace();
@@ -87,69 +110,128 @@ public class ReceiveHexDecimalService {
                 while (dis.read(bytes) != -1) {
                     data.append(bytesToHexString(bytes));
                     System.out.println("数据输出："+bytesToHexString(bytes));
+                    //如果传输的是84的倍数
+                    if(data.length()>0&&data.toString().trim().length()%84==0){
+                        String dataToStirngTotal =data.toString().trim();
+                        String  M1 =dataToStirngTotal.substring(0,2);
+
+                        String M2=dataToStirngTotal.substring(2,4);
+
+                        String IMEI =dataToStirngTotal.substring(4,34);
+
+                        String  shijian=dataToStirngTotal.substring(34,46);
+
+                        String time =handleTime(shijian);
+
+                        String zhiliang=dataToStirngTotal.substring(46,48);
+
+                        float weidu=getNeedFloat(NumberUtils.IEEE754StrTofloat(dataToStirngTotal.substring(48,56)));
+                        float jingdu=getNeedFloat(NumberUtils.IEEE754StrTofloat(dataToStirngTotal.substring(56,64)));
+                        float gaodu=getNeedFloat(NumberUtils.IEEE754StrTofloat(dataToStirngTotal.substring(64,72)));
+
+                        String DW=dataToStirngTotal.substring(72,74);
+                        String NS=dataToStirngTotal.substring(74,76);
+                        String EW=dataToStirngTotal.substring(76,78);
+                        String WX=dataToStirngTotal.substring(78,80);
+                        String DY=dataToStirngTotal.substring(80,82);
+                        String HE=dataToStirngTotal.substring(82,84);
+                        PositionRecordEntity entity  =new PositionRecordEntity()  ;
+                        entity.setCreateTime(new Date());
+                        entity.setM1(M1);
+                        entity.setM2(M2);
+                        entity.setImei(IMEI);
+                        entity.setShiJian(time);
+                        entity.setXinHaoZhiLiang(zhiliang);
+                        entity.setWeiDu(String .valueOf(weidu));
+                        entity.setJingDu(String .valueOf(jingdu));
+                        entity.setGaoDu(String .valueOf(gaodu));
+                        entity.setDw(DW);
+                        entity.setNs(NS);
+                        entity.setEw(EW);
+                        entity.setWx(WX);
+                        entity.setDy(DY);
+                        entity.setHe(HE);
+                        positionRecordEntityMapper.insert(entity);
+                        System.out.print("插入成功");
+                        data=new StringBuffer();
+                    }
                 }
                 System.out.println("数据总接收："+data.toString());
-
-                if(StringUtils.isEmpty(data.toString())){
-                    return ;
+            }catch(Exception e){e.printStackTrace();}finally{
+                try{
+                    System.out.println("关闭连接:"+clientSocket.getInetAddress()+":"+clientSocket.getPort());
+                    if(clientSocket!=null)clientSocket.close();
+                }catch(IOException e){
+                    e.printStackTrace();
                 }
-                String dataSpilit = null;
-                String dataToStirngTotal =data.toString().trim();
-                int dataLength = dataToStirngTotal.length();
-                if(dataLength%84!=0){
-                    throw  new RuntimeException("数据有误请检查");
+            }
+        }
+    }
+
+    class HandlerTool implements Runnable{
+        private Socket clientSocket;
+        public HandlerTool(Socket socket){
+            this.clientSocket=socket;
+        }
+        public void run(){
+            try{
+                System.out.println("工具客户端连接:" + clientSocket.getLocalSocketAddress().toString());
+                InputStream is = clientSocket.getInputStream();
+                BufferedInputStream  br = new BufferedInputStream(is);
+                DataInputStream dis = new DataInputStream(br);
+                byte[] buf = new byte[1024];
+                int line = 0;
+                StringBuffer  data =new StringBuffer();
+                while ((line = br.read()) != -1) {
+                    data.append((char) line);
+                    System.out.println("工具客户端数据输出："+data.toString().trim());
+                    //如果传输的是84的倍数
+                    if(data.length()>0&&data.toString().trim().length()%84==0){
+                        String dataToStirngTotal =data.toString().trim();
+                        String  M1 =dataToStirngTotal.substring(0,2);
+
+                        String M2=dataToStirngTotal.substring(2,4);
+
+                        String IMEI =dataToStirngTotal.substring(4,34);
+
+                        String  shijian=dataToStirngTotal.substring(34,46);
+
+                        String time =handleTime(shijian);
+
+                        String zhiliang=dataToStirngTotal.substring(46,48);
+
+                        float weidu=getNeedFloat(NumberUtils.IEEE754StrTofloat(dataToStirngTotal.substring(48,56)));
+                        float jingdu=getNeedFloat(NumberUtils.IEEE754StrTofloat(dataToStirngTotal.substring(56,64)));
+                        float gaodu=getNeedFloat(NumberUtils.IEEE754StrTofloat(dataToStirngTotal.substring(64,72)));
+
+                        String DW=dataToStirngTotal.substring(72,74);
+                        String NS=dataToStirngTotal.substring(74,76);
+                        String EW=dataToStirngTotal.substring(76,78);
+                        String WX=dataToStirngTotal.substring(78,80);
+                        String DY=dataToStirngTotal.substring(80,82);
+                        String HE=dataToStirngTotal.substring(82,84);
+                        PositionRecordEntity entity  =new PositionRecordEntity()  ;
+                        entity.setCreateTime(new Date());
+                        entity.setM1(M1);
+                        entity.setM2(M2);
+                        entity.setImei(IMEI);
+                        entity.setShiJian(time);
+                        entity.setXinHaoZhiLiang(zhiliang);
+                        entity.setWeiDu(String .valueOf(weidu));
+                        entity.setJingDu(String .valueOf(jingdu));
+                        entity.setGaoDu(String .valueOf(gaodu));
+                        entity.setDw(DW);
+                        entity.setNs(NS);
+                        entity.setEw(EW);
+                        entity.setWx(WX);
+                        entity.setDy(DY);
+                        entity.setHe(HE);
+                        positionRecordEntityMapper.insert(entity);
+                        System.out.print("插入成功");
+                        data=new StringBuffer();
+                    }
                 }
-
-                int count =dataLength/84;
-
-                int j=0;
-                for (int i=0;i<count;i++){
-                    dataSpilit=dataToStirngTotal.substring(j,j+84);
-                    String  M1 =dataSpilit.substring(0,2);
-
-                    String M2=dataSpilit.substring(2,4);
-
-                    String IMEI =dataSpilit.substring(4,34);
-
-                    String  shijian=dataSpilit.substring(34,46);
-
-                    String time =handleTime(shijian);
-
-                    String zhiliang=dataSpilit.substring(46,48);
-
-                    float weidu=getNeedFloat(NumberUtils.IEEE754StrTofloat(dataSpilit.substring(48,56)));
-                    float jingdu=getNeedFloat(NumberUtils.IEEE754StrTofloat(dataSpilit.substring(56,64)));
-                    float gaodu=getNeedFloat(NumberUtils.IEEE754StrTofloat(dataSpilit.substring(64,72)));
-
-                    String DW=dataSpilit.substring(72,74);
-                    String NS=dataSpilit.substring(74,76);
-                    String EW=dataSpilit.substring(76,78);
-                    String WX=dataSpilit.substring(78,80);
-                    String DY=dataSpilit.substring(80,82);
-                    String HE=dataSpilit.substring(82,84);
-                    PositionRecordEntity entity  =new PositionRecordEntity()  ;
-                    entity.setCreateTime(new Date());
-                    entity.setM1(M1);
-                    entity.setM2(M2);
-                    entity.setImei(IMEI);
-                    entity.setShiJian(time);
-                    entity.setXinHaoZhiLiang(zhiliang);
-                    entity.setWeiDu(String .valueOf(weidu));
-                    entity.setJingDu(String .valueOf(jingdu));
-                    entity.setGaoDu(String .valueOf(gaodu));
-                    entity.setDw(DW);
-                    entity.setNs(NS);
-                    entity.setEw(EW);
-                    entity.setWx(WX);
-                    entity.setDy(DY);
-                    entity.setHe(HE);
-                    positionRecordEntityMapper.insert(entity);
-                    System.out.print("插入成功");
-                    dataSpilit=null;
-                    j=j+84;
-                }
-
-
+                System.out.println("数据总接收："+data.toString());
             }catch(Exception e){e.printStackTrace();}finally{
                 try{
                     System.out.println("关闭连接:"+clientSocket.getInetAddress()+":"+clientSocket.getPort());
