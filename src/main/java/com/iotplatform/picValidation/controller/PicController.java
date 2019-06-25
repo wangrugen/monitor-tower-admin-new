@@ -2,8 +2,10 @@ package com.iotplatform.picValidation.controller;
 
 import com.iotplatform.common.ResponseMessage;
 import com.iotplatform.picValidation.dao.PicValidationEntityMapper;
+import com.iotplatform.picValidation.entity.PicValidationEntityExample;
 import com.iotplatform.picValidation.param.PicTesParam;
 import com.iotplatform.picValidation.service.PicValidationService;
+import com.iotplatform.receiveHexDecimal.entity.PositionRecordEntityExample;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,9 +27,10 @@ public class PicController {
     @RequestMapping(value ="/testPicList")
     @ResponseBody
     public ResponseMessage getPicTestList(PicTesParam vo ){
-        vo.setPage(vo.getPage()-1);
+        vo.setPage((vo.getPage()-1)*vo.getLimit());
         List<Object > obj =picValidationEntityMapper.list(vo ,vo.toRowBounds());
-        return new ResponseMessage(obj.size(),obj);
+        PicValidationEntityExample example  =new  PicValidationEntityExample();
+        return new ResponseMessage(picValidationEntityMapper.countByExample(example),obj);
     }
 
 

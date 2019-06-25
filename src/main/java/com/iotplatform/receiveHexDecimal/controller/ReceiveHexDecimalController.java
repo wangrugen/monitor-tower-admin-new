@@ -4,7 +4,10 @@ import com.iotplatform.common.ResponseMessage;
 import com.iotplatform.picValidation.dao.PicValidationEntityMapper;
 import com.iotplatform.picValidation.param.PicTesParam;
 import com.iotplatform.picValidation.service.PicValidationService;
+import com.iotplatform.receiveHexDecimal.dao.PositionRecordEntityMapper;
 import com.iotplatform.receiveHexDecimal.dao.ReceiveHexDecimalEntityMapper;
+import com.iotplatform.receiveHexDecimal.entity.PositionRecordEntityExample;
+import com.iotplatform.receiveHexDecimal.entity.ReceiveHexDecimalEntityExample;
 import com.iotplatform.receiveHexDecimal.param.ReceiveHexDecimalParam;
 import com.iotplatform.receiveHexDecimal.service.ReceiveHexDecimalService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +23,7 @@ import java.util.List;
 public class ReceiveHexDecimalController {
 
     @Autowired
-    private ReceiveHexDecimalEntityMapper   receiveHexDecimalEntityMapper ;
+    private PositionRecordEntityMapper positionRecordEntityMapper ;
 
     @Autowired
     private ReceiveHexDecimalService receiveHexDecimalService;
@@ -28,9 +31,10 @@ public class ReceiveHexDecimalController {
     @RequestMapping(value ="/receiveHexDecimalList")
     @ResponseBody
     public ResponseMessage receiveHexDecimalList(ReceiveHexDecimalParam vo ){
-        vo.setPage(vo.getPage()-1);
-        List<Object > obj =receiveHexDecimalEntityMapper.list(vo ,vo.toRowBounds());
-        return new ResponseMessage(obj.size(),obj);
+        vo.setPage((vo.getPage()-1)*vo.getLimit());
+        List<Object > obj =positionRecordEntityMapper.list(vo ,vo.toRowBounds());
+        PositionRecordEntityExample  example  =new  PositionRecordEntityExample();
+        return new ResponseMessage(positionRecordEntityMapper.countByExample(example),obj);
     }
 
 
