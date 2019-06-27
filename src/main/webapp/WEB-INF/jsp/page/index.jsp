@@ -73,15 +73,23 @@
                     <li>
                         <a _href="temp/receiveHexDecimal-list.jsp">
                             <i class="iconfont">&#xe6a7;</i>
-                            <cite>16进制接收测试【测试硬件】</cite>
+                            <cite>16进制接收测试【硬件测试】</cite>
                         </a>
                     </li >
                     <li>
-                        <a _href="temp/receiveHexDecimal-tool-list.jsp">
+                    <a _href="temp/receiveHexDecimal-tool-list.jsp">
+                        <i class="iconfont">&#xe6a7;</i>
+                        <cite>16进制接收测试【工具测试】</cite>
+                    </a>
+                </li >
+
+                    <li>
+                        <a _href="temp/device-list.jsp">
                             <i class="iconfont">&#xe6a7;</i>
-                            <cite>16进制接收测试【测试工具】</cite>
+                            <cite>设备管理</cite>
                         </a>
                     </li >
+                </ul>
                     <!--
                     <li>
                         <a _href="member-del.html">
