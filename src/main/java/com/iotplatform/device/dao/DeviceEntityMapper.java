@@ -2,7 +2,9 @@ package com.iotplatform.device.dao;
 
 import com.iotplatform.device.entity.DeviceEntity;
 import com.iotplatform.device.entity.DeviceEntityExample;
+import com.iotplatform.picValidation.param.PicTesParam;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.session.RowBounds;
 
 import java.util.List;
 
@@ -28,4 +30,7 @@ public interface DeviceEntityMapper {
     int updateByPrimaryKeySelective(DeviceEntity record);
 
     int updateByPrimaryKey(DeviceEntity record);
+
+
+    List<Object> list(PicTesParam vo, RowBounds toRowBounds);
 }
