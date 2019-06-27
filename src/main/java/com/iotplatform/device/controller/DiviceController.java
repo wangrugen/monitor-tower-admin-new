@@ -5,6 +5,7 @@ import com.iotplatform.device.dao.DeviceEntityMapper;
 import com.iotplatform.device.entity.DeviceEntityExample;
 import com.iotplatform.picValidation.entity.PicValidationEntityExample;
 import com.iotplatform.picValidation.param.PicTesParam;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -16,6 +17,7 @@ import java.util.List;
 public class DiviceController {
 
 
+    @Autowired
     private DeviceEntityMapper  deviceEntityMapper;
 
 
