@@ -45,12 +45,12 @@
         </form>
       </div>
       <xblock>
-        <button class="layui-btn" onclick="x_admin_show('启动16进制接收服务','./receiveHexDecimal-port.jsp',500,250)"><i class="layui-icon"></i>开始启动</button>
+        <button class="layui-btn" onclick="x_admin_show('新增设备','./addDevice.jsp',500,250)"><i class="layui-icon"></i>新增设备</button>
       </xblock>
       <table class="layui-table" id="idselect" lay-filter="demo">
       </table>
       <script type="text/html" id="barDemo">
-        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">查看设备轨迹</a>
+        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="toTrace">查看设备轨迹</a>
       </script>
     </div>
     <script>
@@ -96,7 +96,9 @@
                         obj.del();
                         layer.close(index);
                     });
-                } else if(obj.event === 'edit'){
+                } else if(obj.event === 'toTrace'){
+                    x_admin_show('选择轨迹时间范围','${contextPath}/device/toWidthDeviceTime?id='+data.ID+"&imie="+data.DEVICE_IMEI,1300,600)
+                }else if(obj.event === 'edit'){
                     layer.alert('编辑行：<br>'+ JSON.stringify(data))
                 }
             });
