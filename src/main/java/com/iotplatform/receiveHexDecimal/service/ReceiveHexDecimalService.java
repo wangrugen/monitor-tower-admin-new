@@ -127,7 +127,7 @@ public class ReceiveHexDecimalService {
 
                         float weidu=getNeedFloat(NumberUtils.IEEE754StrTofloat(dataToStirngTotal.substring(48,56)));
                         float jingdu=getNeedFloat(NumberUtils.IEEE754StrTofloat(dataToStirngTotal.substring(56,64)));
-                        float gaodu=getNeedFloat(NumberUtils.IEEE754StrTofloat(dataToStirngTotal.substring(64,72)));
+                        float gaodu=NumberUtils.IEEE754StrTofloat(dataToStirngTotal.substring(64,72));
 
                         String DW=dataToStirngTotal.substring(72,74);
                         String NS=dataToStirngTotal.substring(74,76);
@@ -202,7 +202,7 @@ public class ReceiveHexDecimalService {
 
                         float weidu=getNeedFloat(NumberUtils.IEEE754StrTofloat(dataToStirngTotal.substring(48,56)));
                         float jingdu=getNeedFloat(NumberUtils.IEEE754StrTofloat(dataToStirngTotal.substring(56,64)));
-                        float gaodu=getNeedFloat(NumberUtils.IEEE754StrTofloat(dataToStirngTotal.substring(64,72)));
+                        float gaodu=NumberUtils.IEEE754StrTofloat(dataToStirngTotal.substring(64,72));
 
                         String DW=dataToStirngTotal.substring(72,74);
                         String NS=dataToStirngTotal.substring(74,76);

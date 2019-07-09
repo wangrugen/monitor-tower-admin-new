@@ -54,6 +54,27 @@
       </script>
     </div>
     <script>
+
+      $(function (){
+          Date.prototype.Format = function(fmt)
+          {
+              var o = {
+                  "M+" : this.getMonth()+1,                 //月份
+                  "d+" : this.getDate(),                    //日
+                  "h+" : this.getHours(),                   //小时
+                  "m+" : this.getMinutes(),                 //分
+                  "s+" : this.getSeconds(),                 //秒
+                  "q+" : Math.floor((this.getMonth()+3)/3), //季度
+                  "S"  : this.getMilliseconds()             //毫秒
+              };
+              if(/(y+)/.test(fmt))
+                  fmt=fmt.replace(RegExp.$1, (this.getFullYear()+"").substr(4 - RegExp.$1.length));
+              for(var k in o)
+                  if(new RegExp("("+ k +")").test(fmt))
+                      fmt = fmt.replace(RegExp.$1, (RegExp.$1.length==1) ? (o[k]) : (("00"+ o[k]).substr((""+ o[k]).length)));
+              return fmt;
+          }
+      })
         layui.use('laypage', function(){
             var laypage = layui.laypage;
 
@@ -138,6 +159,7 @@
                     ,{field: 'JING_DU', title: '经度', width: 177}
                     ,{field: 'WEI_DU', title: '纬度', width: 80, sort: true}
                     ,{field: 'GAO_DU', title: '高度', width: 80},
+                    {field: 'CREATE_TIME', title: '创建时间', width: 80},
                    {fixed: 'right', width:80, align:'center', toolbar: '#barDemo',title: '操作'}
                 ]]
             });
