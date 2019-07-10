@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.math.RoundingMode;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -132,8 +133,8 @@ public class ReceiveHexDecimalService {
                         String DW=dataToStirngTotal.substring(72,74);
                         String NS=dataToStirngTotal.substring(74,76);
                         String EW=dataToStirngTotal.substring(76,78);
-                        String WX=dataToStirngTotal.substring(78,80);
-                        String DY=dataToStirngTotal.substring(80,82);
+                        String WX=getWX(dataToStirngTotal.substring(78,80));
+                        String DY=getDY(dataToStirngTotal.substring(80,82));
                         String HE=dataToStirngTotal.substring(82,84);
                         PositionRecordEntity entity  =new PositionRecordEntity()  ;
                         entity.setCreateTime(new Date());
@@ -207,8 +208,8 @@ public class ReceiveHexDecimalService {
                         String DW=dataToStirngTotal.substring(72,74);
                         String NS=dataToStirngTotal.substring(74,76);
                         String EW=dataToStirngTotal.substring(76,78);
-                        String WX=dataToStirngTotal.substring(78,80);
-                        String DY=dataToStirngTotal.substring(80,82);
+                        String WX=getWX(dataToStirngTotal.substring(78,80));
+                        String DY=getDY(dataToStirngTotal.substring(80,82));
                         String HE=dataToStirngTotal.substring(82,84);
                         PositionRecordEntity entity  =new PositionRecordEntity()  ;
                         entity.setCreateTime(new Date());
@@ -315,12 +316,6 @@ public class ReceiveHexDecimalService {
         return (byte) Integer.parseInt(inHex, 16);
     }
 
-    public static  void main (String args[]){
-
-
-
-        System.out.print(handleTime("313130353536"));
-    }
 
     public static float bytesToFloat(byte[] data) {// 解析4个字节中的数据，按照IEEE754的标准
         int s = 0;// 浮点数的符号
@@ -402,5 +397,21 @@ public class ReceiveHexDecimalService {
             sb.append(hex);
         }
         return sb.toString();
+    }
+
+    public String getDY(String DY){
+
+        return  String.valueOf(new BigInteger(DY, 16).floatValue()/10) ;
+    }
+
+    public String getWX(String DY){
+
+        return  String.valueOf(new BigInteger(DY, 16)) ;
+    }
+
+    public static  void main (String args[]){
+
+        System.out.print(new BigInteger("25", 16).floatValue()/10);
+
     }
 }

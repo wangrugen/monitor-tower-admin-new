@@ -158,8 +158,17 @@
                     ,{field: 'SHI_JIAN', title: '时间', width:80}
                     ,{field: 'JING_DU', title: '经度', width: 177}
                     ,{field: 'WEI_DU', title: '纬度', width: 80, sort: true}
-                    ,{field: 'GAO_DU', title: '高度', width: 80},
-                    {field: 'CREATE_TIME', title: '创建时间', width: 80},
+                    ,{field: 'GAO_DU', title: '高度', width: 80}
+                    ,{field: 'WX', title: 'WX', width: 80}
+                    ,{field: 'NS', title: 'NS', width: 80}
+                    ,{field: 'EW', title: 'EW', width: 80}
+                    ,{field: 'DY', title: 'DY', width: 80}
+                    ,{field: 'DW', title: '定位状态', width: 80,templet:function (d){
+                            if (d.DW=='00'){ return '未定位'}
+                            else if(d.DW=='01') { return '已定位'}
+                            else { return d.DW}
+                        }}
+                    ,{field: 'CREATE_TIME', title: '创建时间', width: 80},
                    {fixed: 'right', width:80, align:'center', toolbar: '#barDemo',title: '操作'}
                 ]]
             });
