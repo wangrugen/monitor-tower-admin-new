@@ -36,54 +36,59 @@
         <input type="button" class="btn" value="停止动画" id="stop" onclick="stopAnimation()"/>
     </div>
 </div>
-<script type="text/javascript" src="https://webapi.amap.com/maps?v=1.4.15&key=您申请的key值"></script>
+<script type="text/javascript" src="https://webapi.amap.com/maps?v=1.4.15&key=250d476776c4989fe0eaf69d434886fd"></script>
 <script>
+    var marker,lineArr = eval('(' + '${traces}' + ')');
+    console.log("lineArr："+lineArr);
+    var center = eval('(' + '${center}' + ')');
+    console.log("center："+center);
+    AMap.convertFrom(lineArr, 'gps', function (status, result) {
+        if (result.info === 'ok') {
+            var lineArr1 = result.locations; // Array.<LngLat>
+            var map = new AMap.Map("container", {
+                resizeEnable: true,
+                center:lineArr1[0],
+                zoom: 17
+            });
+            marker = new AMap.Marker({
+                map: map,
+                position: lineArr1[0],
+                icon: "${contextPath}/images/icon_coverR.png",
+                offset: new AMap.Pixel(-26, -13),
+                autoRotation: true,
+                angle:-90,
+            });
 
-    var marker, lineArr = eval('(' + '${traces}' + ')');
+            // 绘制轨迹
+            var polyline = new AMap.Polyline({
+                map: map,
+                path: lineArr1,
+                showDir:true,
+                strokeColor: "#28F",  //线颜色
+                // strokeOpacity: 1,     //线透明度
+                strokeWeight: 6,      //线宽
+                // strokeStyle: "solid"  //线样式
+            });
 
-    console.log(lineArr);
-    console.log(eval('(' + '${center}' + ')'));
+            var passedPolyline = new AMap.Polyline({
+                map: map,
+                // path: lineArr,
+                strokeColor: "#AF5",  //线颜色
+                // strokeOpacity: 1,     //线透明度
+                strokeWeight: 6,      //线宽
+                // strokeStyle: "solid"  //线样式
+            });
 
-    var map = new AMap.Map("container", {
-        resizeEnable: true,
-        center: eval('(' + '${center}' + ')'),
-        zoom: 17
+
+            marker.on('moving', function (e) {
+                passedPolyline.setPath(e.passedPath);
+            });
+
+            map.setFitView();
+        }
     });
-    marker = new AMap.Marker({
-        map: map,
-        position: eval('(' + '${center}' + ')'),
-        icon: "${contextPath}/images/icon_coverR.png",
-        offset: new AMap.Pixel(-26, -13),
-        autoRotation: true,
-        angle:-90,
-    });
-
-    // 绘制轨迹
-    var polyline = new AMap.Polyline({
-        map: map,
-        path: lineArr,
-        showDir:true,
-        strokeColor: "#28F",  //线颜色
-        // strokeOpacity: 1,     //线透明度
-        strokeWeight: 6,      //线宽
-        // strokeStyle: "solid"  //线样式
-    });
-
-    var passedPolyline = new AMap.Polyline({
-        map: map,
-        // path: lineArr,
-        strokeColor: "#AF5",  //线颜色
-        // strokeOpacity: 1,     //线透明度
-        strokeWeight: 6,      //线宽
-        // strokeStyle: "solid"  //线样式
-    });
 
 
-    marker.on('moving', function (e) {
-        passedPolyline.setPath(e.passedPath);
-    });
-
-    map.setFitView();
 
     function startAnimation () {
         marker.moveAlong(lineArr, 200);

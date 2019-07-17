@@ -102,9 +102,10 @@ public class DiviceController {
     }
 
     public static  String toTraceString(List<PositionRecordEntity>  list){
-        double  d  []=new double[2];
-        List<double []>  list1  =new ArrayList<>();
+        Double  d  []=null;
+        List<Double []>  list1  =new ArrayList<>();
         for (PositionRecordEntity entity :list){
+            d=new Double[2];
             d[0]=Double.valueOf(entity.getJingDu());
             d[1]=Double.valueOf(entity.getWeiDu());
             list1.add(d);

@@ -14,7 +14,7 @@
     <script type="text/javascript" src="${pageContext.request.contextPath}/easyui/1.3.4/jquery.easyui.min.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/easyui/1.3.4/locale/easyui-lang-zh_CN.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/layer.js"></script>
-    <script src="https://webapi.amap.com/maps?v=1.4.13&key=您申请的key值"></script>
+    <script src="https://webapi.amap.com/maps?v=1.4.13&key=	250d476776c4989fe0eaf69d434886fd"></script>
     <script type="text/javascript" src="https://webapi.amap.com/demos/js/liteToolbar.js"></script>
     <script type="text/javascript" src='https://a.amap.com/jsapi_demos/static/citys.js'></script>t>
 </head>
