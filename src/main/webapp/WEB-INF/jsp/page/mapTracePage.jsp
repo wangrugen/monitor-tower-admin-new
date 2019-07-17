@@ -42,9 +42,10 @@
     console.log("lineArr："+lineArr);
     var center = eval('(' + '${center}' + ')');
     console.log("center："+center);
+    var lineArr1;
     AMap.convertFrom(lineArr, 'gps', function (status, result) {
         if (result.info === 'ok') {
-            var lineArr1 = result.locations; // Array.<LngLat>
+            lineArr1= result.locations; // Array.<LngLat>
             var map = new AMap.Map("container", {
                 resizeEnable: true,
                 center:lineArr1[0],
@@ -91,7 +92,7 @@
 
 
     function startAnimation () {
-        marker.moveAlong(lineArr, 200);
+        marker.moveAlong(lineArr1, 200);
     }
 
     function pauseAnimation () {
